@@ -1,12 +1,15 @@
 package tests;
 
 import org.junit.Test;
+import org.junit.jupiter.api.DisplayName;
+import io.qameta.allure.*;
 import pages.HomePage;
 import pages.SearchResultsPage;
 import pages.HotelPage;
 
 import static com.codeborne.selenide.Selenide.switchTo;
 
+@DisplayName("Проверка совпадения данных отеля в поиске и на карте")
 public class HotelParamsTest extends BaseTest {
     // 1.1 зайти на сайт https://www.booking.com/
     // 1.2 ввести в поиске любой город (заграничный)
@@ -20,7 +23,8 @@ public class HotelParamsTest extends BaseTest {
     // 1.9 на открывшейся странице отеля проверить название отеля, количество звезд, среднюю оценку,
     // количество отзывов и стоимость
     @Test
-    public void testScenario() {
+    @Description("Проверка названия, звезд, оценки, отзывов и стоимости отеля")
+    public void testHotelParams() {
         String cityName = "San Francisco";
 
         HomePage homePage = new HomePage();
@@ -36,6 +40,7 @@ public class HotelParamsTest extends BaseTest {
         String mapHotelRating = searchResultsPage.mapHotelRating;
         String mapHotelReviews = searchResultsPage.mapHotelReviews;
         String mapHotelPrice = searchResultsPage.mapHotelPrice;
+        searchResultsPage.clickOnMapPointer();
         switchTo().window(1);
         hotelPage.checkName(mapHotelName);
         hotelPage.checkStars(mapHotelStars);
